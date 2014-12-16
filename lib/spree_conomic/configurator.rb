@@ -21,6 +21,7 @@ module SpreeConomic
         @debtor_group_handle = wrap_in_proc(handle)
       end
 
+      # Proc will be called with a user
       def debtor_number=(number)
         @debtor_number = wrap_in_proc(number)
       end
