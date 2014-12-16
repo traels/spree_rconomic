@@ -23,19 +23,14 @@ SpreeConomic::Configurator.config do |c|
   c.app_id = '_ID_OF_ECONOMIC_APP_'
   c.app_token = '_TOKEN_FOR_USER_AUTHORIZING_THE_APP_'
   c.transfer_on_ship = true   # if false you must transfer manually
-  # these will be called with a order if configured with a proc
-  c.layout_handle = 16
-  c.term_of_payment_handle = 2
-  c.debtor_group_handle = 1
-  # proc will be called with a user
+  c.layout_handle = ->(order) { 16 }
+  c.term_of_payment_handle = ->(order) { 2 }
+  c.debtor_group_handle = ->(user) { 1 }
   c.debtor_number = ->(user) { 10_000 + user.id }
   c.vat_number = ->(user) { 12_300_000 + user.id }
-  # proc will be called with a variant
-  c.product_group_handle = 1
-  # proc will be called with first shipping method from order
-  c.shipping_product_number = 'SKU-1'
-  # proc will be called with label from adjustments
-  c.discount_product_number = 'SKU-2'
+  c.product_group_handle = ->(variant) { 1 }
+  c.shipping_product_number = ->(shipping_method) { 'SKU-1' }
+  c.discount_product_number = ->(label) { 'SKU-2' }
 end
 ```
 
